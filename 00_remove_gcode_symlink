@@ -1,0 +1,24 @@
+#!/bin/bash
+# ran whenever a USB device is unmounted
+# takes in UM_MOUNTPOINT as an environment variable
+# removes first symlink in SYMLINK_DIR that points to UM_MOUNTPOINT
+set -e
+
+SYMLINK_DIR="/home/sonic/printer_data/gcodes"
+
+if [ -z "$UM_MOUNTPOINT" ]; then
+    echo "Error: UM_MOUNTPOINT environment variable is not set."
+    exit 1
+fi
+
+if [ ! -d "$SYMLINK_DIR" ]; then
+    echo "Error: Symlink directory '$SYMLINK_DIR' does not exist."
+    exit 1
+fi
+
+for symlink in "$SYMLINK_DIR"/USB*; do
+    if [[ "$(readlink "$symlink")" == "$UM_MOUNTPOINT" ]]; then
+        echo "Removing symlink: '$symlink'"
+        rm "$symlink"
+    fi
+done

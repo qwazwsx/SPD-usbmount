@@ -1,0 +1,39 @@
+#!/bin/bash
+# ran whenever a USB device is mounted, sometimes multiple times.
+# takes in UM_MOUNTPOINT as an environment variable
+# symlinks specified UM_MOUNTPOINT to first available SYMLINK_DIR/USB{i} file
+# exits if a symlink already exists
+set -e
+
+# Define the symlink directory
+SYMLINK_DIR="/home/sonic/printer_data/gcodes"
+
+if [ -z "$UM_MOUNTPOINT" ]; then
+        echo "Error: UM_MOUNTPOINT environment variable is not set."
+        exit 1
+fi
+
+if [ ! -d "$UM_MOUNTPOINT" ]; then
+        echo "Error: UM_MOUNTPOINT, provided by the usbmount package, is set to a non-existent directory: '$UM_MOUNTPOINT'"
+        exit 1
+fi
+
+if [ ! -d "$SYMLINK_DIR" ]; then
+        echo "Error: SYMLINK_DIR '$SYMLINK_DIR' does not exist."
+        exit 1
+fi
+
+# find the next available USB{i} file, exiting if we find a link to our UM_MOUNTPOINT
+i=0
+while [ -e "$SYMLINK_DIR/USB$i" ]; do
+        path=$(readlink "$SYMLINK_DIR/USB$i")
+        if [[ "$path" == "$UM_MOUNTPOINT" ]]; then
+                echo "Error: '$SYMLINK_DIR/USB$i' already points to specified UM_MOUNTPOINT, '$UM_MOUNTPOINT'"
+                exit 1
+        fi
+        i=$((i + 1))
+done
+
+ln -sf "$UM_MOUNTPOINT" "$SYMLINK_DIR/USB$i"
+
+echo "Symlink created: $SYMLINK_DIR/USB$i -> $UM_MOUNTPOINT"
