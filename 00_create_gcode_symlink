@@ -34,6 +34,6 @@ while [ -e "$SYMLINK_DIR/USB$i" ]; do
         i=$((i + 1))
 done
 
-ln -sf "$UM_MOUNTPOINT" "$SYMLINK_DIR/USB$i" >> /var/log/mount_unmount.log
+ln -sf "$UM_MOUNTPOINT" "$SYMLINK_DIR/USB$i" >> /var/log/mount_unmount.log 2>&1
 
 echo "Symlink created: $SYMLINK_DIR/USB$i -> $UM_MOUNTPOINT" >> /var/log/mount_unmount.log
