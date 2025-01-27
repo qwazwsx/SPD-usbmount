@@ -12,6 +12,7 @@ echo "------------------------------------------------------------"
 echo "Clone, build, and install usbmount"
 
 cd /tmp
+rm -rf /tmp/usbmount*
 git clone https://github.com/rbrito/usbmount.git
 cd usbmount
 dpkg-buildpackage -us -uc -b
