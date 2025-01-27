@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+dir=$(pwd)
+
 echo "------------------------------------------------------------"
 echo "Installing usbmount dependencies"
 
@@ -19,6 +21,7 @@ rm -rf /tmp/usbmount*
 
 
 echo "------------------------------------------------------------"
+cd $dir
 echo "Configuring usbmount"
 
 cp 00_create_gcode_symlink /etc/usbmount/mount.d/00_create_gcode_symlink
