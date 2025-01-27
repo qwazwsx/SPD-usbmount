@@ -5,7 +5,7 @@ Before=shutdown.target reboot.target halt.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/remove_all_gcode_symlinks.sh
+ExecStart=/usr/local/bin/remove_symlinks.sh
 RemainAfterExit=true
 
 [Install]
