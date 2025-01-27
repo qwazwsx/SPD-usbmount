@@ -37,7 +37,10 @@ This script installs [usbmount](https://github.com/rbrito/usbmount) and configur
 ---
 ### 🛠 **Customizing the Target Directory**
 
-By default, symlinks will be created in `~/printer_data/gcodes`. To change this target directory, simply modify the `SYMLINK_DIR` variable in each of the shell scripts (`00_create_gcode_symlink`, `00_remove_gcode_symlink`, and `remove_symlinks.sh`).
+By default, symlinks will be created in `~/printer_data/gcodes`. To change this target directory, simply modify the `SYMLINK_DIR` variable in each of the shell scripts 
+- `/etc/usbmount/mount.d/00_create_gcode_symlink`
+- `/etc/usbmount/umount.d/00_remove_gcode_symlink`
+- `/usr/local/bin/remove_symlinks.sh`
 
 For example, to change the target directory:
 
