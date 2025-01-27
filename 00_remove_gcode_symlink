@@ -7,18 +7,18 @@ set -e
 SYMLINK_DIR="/home/sonic/printer_data/gcodes"
 
 if [ -z "$UM_MOUNTPOINT" ]; then
-    echo "Error: UM_MOUNTPOINT environment variable is not set."
+    echo "Error: UM_MOUNTPOINT environment variable is not set." >> /var/log/mount_unmount.log
     exit 1
 fi
 
 if [ ! -d "$SYMLINK_DIR" ]; then
-    echo "Error: Symlink directory '$SYMLINK_DIR' does not exist."
+    echo "Error: Symlink directory '$SYMLINK_DIR' does not exist." >> /var/log/mount_unmount.log
     exit 1
 fi
 
 for symlink in "$SYMLINK_DIR"/USB*; do
     if [[ "$(readlink "$symlink")" == "$UM_MOUNTPOINT" ]]; then
-        echo "Removing symlink: '$symlink'"
-        rm "$symlink"
+        echo "Removing symlink: '$symlink'" >> /var/log/mount_unmount.log
+        rm "$symlink" >> /var/log/mount_unmount.log
     fi
 done

@@ -9,17 +9,17 @@ set -e
 SYMLINK_DIR="/home/sonic/printer_data/gcodes"
 
 if [ -z "$UM_MOUNTPOINT" ]; then
-        echo "Error: UM_MOUNTPOINT environment variable is not set."
+        echo "Error: UM_MOUNTPOINT environment variable is not set." >> /var/log/mount_unmount.log
         exit 1
 fi
 
 if [ ! -d "$UM_MOUNTPOINT" ]; then
-        echo "Error: UM_MOUNTPOINT, provided by the usbmount package, is set to a non-existent directory: '$UM_MOUNTPOINT'"
+        echo "Error: UM_MOUNTPOINT, provided by the usbmount package, is set to a non-existent directory: '$UM_MOUNTPOINT'" >> /var/log/mount_unmount.log
         exit 1
 fi
 
 if [ ! -d "$SYMLINK_DIR" ]; then
-        echo "Error: SYMLINK_DIR '$SYMLINK_DIR' does not exist."
+        echo "Error: SYMLINK_DIR '$SYMLINK_DIR' does not exist." >> /var/log/mount_unmount.log
         exit 1
 fi
 
@@ -28,12 +28,12 @@ i=0
 while [ -e "$SYMLINK_DIR/USB$i" ]; do
         path=$(readlink "$SYMLINK_DIR/USB$i")
         if [[ "$path" == "$UM_MOUNTPOINT" ]]; then
-                echo "Error: '$SYMLINK_DIR/USB$i' already points to specified UM_MOUNTPOINT, '$UM_MOUNTPOINT'"
+                echo "Error: '$SYMLINK_DIR/USB$i' already points to specified UM_MOUNTPOINT, '$UM_MOUNTPOINT'" >> /var/log/mount_unmount.log
                 exit 1
         fi
         i=$((i + 1))
 done
 
-ln -sf "$UM_MOUNTPOINT" "$SYMLINK_DIR/USB$i"
+ln -sf "$UM_MOUNTPOINT" "$SYMLINK_DIR/USB$i" >> /var/log/mount_unmount.log
 
-echo "Symlink created: $SYMLINK_DIR/USB$i -> $UM_MOUNTPOINT"
+echo "Symlink created: $SYMLINK_DIR/USB$i -> $UM_MOUNTPOINT" >> /var/log/mount_unmount.log
