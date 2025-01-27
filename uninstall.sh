@@ -12,7 +12,7 @@ sudo rm /etc/usbmount/umount.d/00_remove_gcode_symlink
 sudo rm /usr/local/bin/remove_all_gcode_symlinks.sh
 
 sudo systemctl disable remove-symlinks.service
-sudo rm /etc/systemd/system/remove_all_gcode_symlinks.service
+sudo rm /etc/systemd/system/remove-symlinks.service
 sudo systemctl daemon-reload
 
 echo "------------------------------------------------------------"
