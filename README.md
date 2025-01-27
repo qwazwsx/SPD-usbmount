@@ -108,3 +108,5 @@ If you want to support multiple Klipper instances, you can point each instance t
 - **⚠️ Error Handling**: If something goes wrong, the system logs will provide useful error messages. Be sure to check `/var/log/mount_unmount.log` and `/var/log/syslog` for detailed information.
 
 - **🎉 Enjoy Seamless USB Mounting**: With everything set up, your USB devices will automatically mount to the `gcodes` directory and be easily accessible for use in your 3D printing workflow.
+
+- **Unexpected Shutdown**: If your SonicPad unexpectedly shuts down, you may be left with extra symlinks in your gcodes directory that point to the previous USB mountpoint. Feel free to remove them.
