@@ -19,6 +19,6 @@ fi
 for symlink in "$SYMLINK_DIR"/USB*; do
     if [[ "$(readlink "$symlink")" == "$UM_MOUNTPOINT" ]]; then
         echo "Removing symlink: '$symlink'" >> /var/log/mount_unmount.log
-        rm "$symlink" >> /var/log/mount_unmount.log
+        rm "$symlink" >> /var/log/mount_unmount.log 2>&1
     fi
 done
