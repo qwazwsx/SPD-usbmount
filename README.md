@@ -52,21 +52,32 @@ SYMLINK_DIR="/home/sonic/custom_directory"
 
 ### 🔗 **Supporting Multiple Instances**
 
-If you want to support multiple Klipper instances, you can point each instance to a dummy `printer_data` directory. For example:
+The directories for different instances are already created by the Klipper install script:
 
-1. The directories for different instances are already created by the Klipper install script:
+```bash
+~/printer1_data/gcodes
+~/printer2_data/gcodes
+```
 
-    ```bash
-    ~/printer1_data/gcodes
-    ~/printer2_data/gcodes
-    ```
+If you want one unified gcodes directory: Remove these directories and symlink them to the main `gcodes` directory:
 
-2. Remove these directories and symlink them to the main `gcodes` directory:
+```bash
+ln -s ~/printer1_data/gcodes ~/printer_data/gcodes
+ln -s ~/printer2_data/gcodes ~/printer_data/gcodes
+```
+This means your real gcodes directory is `~/printer_data/gcodes` and each instance's `gcodes` folder just points to that.
 
-    ```bash
-    ln -s ~/printer1_data/gcodes ~/printer_data/gcodes
-    ln -s ~/printer2_data/gcodes ~/printer_data/gcodes
-    ```
+If you want to keep your gcodes directories seperate for each instance, just symlink the empty `~/printer_data/gcodes`, as such
+> Note: The scripts will return an error if the specified directory does not exist. Ensure `~/printer_data/gcodes` exists if you are using this method.
+
+```bash
+ln -s ~/printer1_data/gcodes/USB ~/printer_data/gcodes
+ln -s ~/printer2_data/gcodes/USB ~/printer_data/gcodes
+```
+This will create a "USB" folder in each of your instance's `gcode` folders that points to the generic `~/printer_data/gcodes` directory.
+    
+You can of course change the directory the symlinks appear in (from `~/printer_data/gcodes` to something else) by configuring the SYMLINK_DIR variable in the scripts. This is not recommended.
+
 ---
 
 ### 📝 **Description of Key Scripts**
