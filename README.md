@@ -14,7 +14,7 @@ This script installs [usbmount](https://github.com/rbrito/usbmount) and configur
 
     ```bash
     cd /tmp
-    git clone git@github.com:qwazwsx/SPD-usbmount.git
+    git clone https://github.com/qwazwsx/SPD-usbmount.git
     cd SPD-usbmount
     ```
 
