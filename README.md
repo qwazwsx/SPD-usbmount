@@ -33,6 +33,7 @@ This script installs [usbmount](https://github.com/rbrito/usbmount) and configur
 3. **Plug in a USB Drive**
     
     ✨Observe it get automatically mounted to the `~/printer_data/gcodes/USB0` directory✨
+   > [see a video of it in action here!](https://streamable.com/gnxzdb)
 
 ---
 ### 🛠 **Customizing the Target Directory**
