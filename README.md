@@ -122,3 +122,5 @@ You can of course change the directory the symlinks appear in (from `~/printer_d
 - **🎉 Enjoy Seamless USB Mounting**: With everything set up, your USB devices will automatically mount to the `gcodes` directory and be easily accessible for use in your 3D printing workflow.
 
 - **Unexpected Shutdown**: If your SonicPad unexpectedly shuts down, you may be left with extra symlinks in your gcodes directory that point to the previous USB mountpoint. Feel free to remove them.
+
+- **Why add an additional scripting layer on top of usbmount?** By default usbmount creates about 8 directories, /media/usb0 thru /media/usb7. You can easilly symlink these all to the gcodes directory if you want. KlipperScreen doesn't show folders that don't have .gcode files in them. This additional layer of scripting ensures that only plugged in and mounted USB devices appear in the gcodes directory, instead of a bunch of potentially empty folders. This is more about keeping the gcodes directory clean than anything else. Plus you can nuke the gcodes directory without having to re-symlink all the usb devices. All this to say, no the scripting on top of usbmount is not super neccessary.
